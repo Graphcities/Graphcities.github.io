@@ -14,6 +14,8 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
@@ -178,6 +180,323 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://graphcities.github.io/2021/05/17/qian-tan-pai-lie-zu-he-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Graphcity">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/17/qian-tan-pai-lie-zu-he-1/" class="post-title-link" itemprop="url">浅谈排列组合 1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-17 12:15:43" itemprop="dateCreated datePublished" datetime="2021-05-17T12:15:43+08:00">2021-05-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-27 23:08:18" itemprop="dateModified" datetime="2021-05-27T23:08:18+08:00">2021-05-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="浅谈排列组合"><a href="#浅谈排列组合" class="headerlink" title="浅谈排列组合"></a>浅谈排列组合</h2><h3 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h3><ul>
+<li>排列组合</li>
+</ul>
+<script type="math/tex; mode=display">
+A^m_n= \frac{n!}{(n-m)!} \\
+\binom{n}{m}=C^m_n=\frac{A^m_n}{A^m_m}=\frac{n!}{(n-m)! \cdot m!}</script><p>特别的，当 $m&gt;n$ 时，$C^m_n=0$ 。</p>
+<ul>
+<li>排列组合的推导</li>
+</ul>
+<p>在 $n$ 个数里面 <strong>按顺序</strong> 的选择 $m$ 个数，也就是 $A^m_n$ ，我们可以这样假设：有 $m$ 个空位，你需要一一把这 $n$ 个物品放上去。有 $n$ 种选择可以在第一个空位上面（ 因为每一个物品都可以放上去 ）。而第二个空位只有 $n-1$ 种选择，（因为有一个物品已经放在了第一个空位，剩下了 $n-1$ 个物品），第三个空位只有 $n-2$ 种选择 $\cdots\cdots$ ，第 $m$ 个空位只有 $(n-m+1)$ 中选择。所以，$A^m_n=n\times(n-1)\times\cdots\times(n-m+1)=\dfrac{n!}{(n-m)!}$ 。</p>
+<p>在 $n$ 个数里面 <strong>不按顺序</strong> 的选择 $m$ 个数，也就是 $C^m_n$ ，也可以写成 $\binom{n}{m}$ 。如果在乎顺序选择，那么总结果就是 $A^m_n$ 。如果不在乎顺序，就要去掉重复。所有被选出来的 $m$ 个数，按顺序排列有 $A^m_m$ 种，如果不按顺序排列，就只有一种。所以，$C^m_n=\dfrac{A^m_n}{A^m_m}=\dfrac{n!}{(n-m)! \cdot m!}$ 。</p>
+<ul>
+<li>排列组合的扩充</li>
+</ul>
+<p>由定义，我们可以发现 $n$ 个数里面选取 $m$ 个数的方案跟 $n$ 个数里面选取 $n-m$ 个数的方案是一样的（因为 $n$ 个数里面选 $m$ 个数，就相当于在 $n$ 个数里面选择 $n-m$ 个数丢掉），于是我们可以得到：</p>
+<script type="math/tex; mode=display">
+\binom{n}{m}=\binom{n}{n-m}</script><p>当在 $n+m$ 个数里面选择 $m$ 个数（ $n \ge m$ ）的时候，相当于从 $n$ 个数里面选择 $0,1,2,\cdots,m$ 个数，并且在剩下 $m$ 个数里面选 $m,m-1,m-2,\cdots,0$ 个数的方案数之和。也就是说，</p>
+<script type="math/tex; mode=display">
+\sum_{i=0}^m\binom{n}{i}\binom{m}{m-i}=\binom{n+m}{m}</script><p>其中 $\sum$ 是求和符号，表示 $i=0,1,2,3,\cdots,m$ 时，求和符号右边式子的值的和。</p>
+<p>当 $n=m$ 时，我们还可以得出</p>
+<script type="math/tex; mode=display">
+\sum_{i=0}^n\binom{n}{i}^2=\binom{2n}{n}</script><hr>
+<h3 id="1-组合数的递推式"><a href="#1-组合数的递推式" class="headerlink" title="1. 组合数的递推式"></a>1. 组合数的递推式</h3><p>在这一节，我们将会证明这个公式：</p>
+<script type="math/tex; mode=display">
+\binom{a}{b}=\binom{a-1}{b-1}+\binom{a-1}{b}</script><ul>
+<li>由 <strong>定义</strong> 出发</li>
+</ul>
+<p>先来看看 $\binom{a}{b}$ 的含义。它指的就是从 $a$ 个数里面不按顺序选出 $b$ 个数的方案数。</p>
+<p>我们可以这样分类讨论：</p>
+<ol>
+<li><p>不选最后一个数，那么就要从 $(a-1)$ 个数里面选出 $b$ 个，即 $\binom{a-1}{b}$ 。</p>
+</li>
+<li><p>选最后一个数，那么只要从 $(a-1)$ 个数里面选 $(b-1)$ 个数即可，那么就是 $\binom{a-1}{b-1}$ 。</p>
+</li>
+</ol>
+<p>由加法原理可以得到</p>
+<script type="math/tex; mode=display">
+\binom{a}{b}=\binom{a-1}{b-1}+\binom{a-1}{b}</script><ul>
+<li>由 <strong>计算</strong> 出发</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\binom{a-1}{b-1}+\binom{a-1}{b} \\
+
+&= \frac{(a-1)!}{(a-b)! \cdot (b-1)!}+\frac{(a-1)!}{(a-b-1)!\cdot b!} \\
+
+&= \frac{(a-1)(a-2)\cdots(a-b+1)}{(b-1)!}+ \frac{(a-1)(a-2)\cdots(a-b)}{b!}
+\end{aligned}</script><p>提公因式 $(a-1)(a-2)\cdots(a-b+1)$，得原式</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&=(a-1)(a-2)\cdots(a-b+1) \cdot ( \frac{1}{(b-1)!} +\frac{a-b}{b!} )\\
+
+&= (a-1)(a-2)\cdots(a-b+1) \cdot ( \frac{b}{b!} +\frac{a-b}{b!} )\\
+
+&= (a-1)(a-2)\cdots(a-b+1) \cdot \frac{a}{b!}\\
+
+&= \frac{a(a-1)(a-2)\cdots(a-b+1)}{b!}\\
+
+&= \frac{a!}{(a-b)! \cdot b!}=\binom{a}{b}\\
+&& \square
+\end{aligned}</script><blockquote>
+<p>关于证明最后的小方块：QED 是拉丁词组 <strong>Q</strong>uod <strong>E</strong>rat <strong>D</strong>emonstrandum（这就是所要证明的）的缩写，代表证明完毕。现在的 QED 符号通常是 $\blacksquare$ 或者是 $\square$。—— <a target="_blank" rel="noopener" href="https://oi-wiki.org/math/mobius/">OI-Wiki</a></p>
+</blockquote>
+<hr>
+<h3 id="Ex-1-二项式定理"><a href="#Ex-1-二项式定理" class="headerlink" title="Ex.1 二项式定理"></a>Ex.1 二项式定理</h3><p>我们先从完全平方公式说起：</p>
+<script type="math/tex; mode=display">
+(a+b)^2=a^2+2ab+b^2</script><p>那么， $(a+b)^n$ 该怎么求呢？在这一节，我们将会证明这个公式，也就是 <strong>二项式定理</strong>：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(a+b)^n&=\binom{n}{0}a^0b^n+\binom{n}{1}a^1b^{n-1}+\cdots+\binom{n}{n}a^nb^0\\
+&=\sum_{i=0}^n\binom{n}{i}a^ib^{n-i}
+\end{aligned}</script><p>其中 $\sum$ 是求和符号，表示 $i=0,1,2,3,\cdots,n$ 时，求和符号右边式子的值的和。</p>
+<p><strong>证明：</strong> 考虑 <strong>数学归纳法</strong>，</p>
+<p>当 $n=0$ 时，$(a+b)^0=1\times a^0b^0=1$ 显然成立。</p>
+<p>假设当 $n=k$ 时成立，即 $(a+b)^k=\sum_{i=0}^k\binom{k}{i}a^ib^{k-i}$ 。那么，当 $n=k+1$ 时，</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(a+b)^{k+1}&=(a+b)^k\times(a+b)\\
+&=(a+b)\times(\binom{k}{0}b^k+\binom{k}{1}a^1b^{k-1}+\cdots+\binom{k}{k}a^k)\\
+&=\binom{k}{k}a^{k+1}+\binom{k}{k-1}a^kb+\binom{k}{k-2}a^{k-1}b^2+\cdots+\binom{k}{0}ab^k\\
+&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\binom{k}{k}a^kb\ \ \ \ \ \ \ +\binom{k}{k-1}a^{k-1}b^2+\binom{k}{k-2}a^{k-2}b^3+\cdots+\binom{k}{0}b^{k+1}\\
+&=\binom{k}{k}a^{k+1}+(\binom{k}{k}+\binom{k}{k-1})a^kb+(\binom{k}{k-1}+\binom{k}{k-2})a^{k-1}b^2+\cdots+\binom{k}{0}b^{k+1}\\
+&=\binom{k+1}{k+1}a^{k+1}+\binom{k+1}{k}a^kb+\binom{k+1}{k-1}a^{k-1}b^2+\cdots+\binom{k}{0}b^{k+1}\\
+&=\sum_{i=0}^{k+1}\binom{k+1}{i}a^ib^{k+1-i}\\
+&&\square
+\end{aligned}</script><p>如果你不想看到这么复杂的计算过程，你也可以从它的组合意义出发，<a target="_blank" rel="noopener" href="https://www.zhihu.com/collection/449573449">证明在这里</a>。</p>
+<p>当二项式定理中的 $a$ 和 $b$ 取特殊值时，你可以得到下面这些式子：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{n}=2^n &&(a=b=1)\\
+\sum_{i=0}^n(-1)^i\binom{n}{i}=0 &&(a=-1,b=1) \\
+
+\end{aligned}</script><hr>
+<h3 id="2-杨辉三角与排列组合"><a href="#2-杨辉三角与排列组合" class="headerlink" title="2. 杨辉三角与排列组合"></a>2. 杨辉三角与排列组合</h3><p>先将杨辉三角集体左移，放在一张表格上。（ 注意表格的行 / 列开头是 <strong>0</strong> ）</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">行 / 列</th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>0</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>1</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>2</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>3</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>4</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>5</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>6</strong></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">15</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">15</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们设表格中第 $x$ 行，第 $y$ 列的数是 $P(x,y)$ 。</p>
+<p>首先，由杨辉三角本身可以得到 $P(a,b)=P(a-1,b)+P(a-1,b-1)$ 。</p>
+<p>接着，我们可以发现一个比较神奇的事实：$P(a,b)=\binom{a}{b}$ 。</p>
+<p><strong>证明</strong>：考虑 <strong>数学归纳法</strong>，</p>
+<p>显然可得 $P(0,0)=\binom{0}{0}$ 。</p>
+<p>发现杨辉三角的递推式 $P(a,b)=P(a-1,b)+P(a-1,b-1)$<br>与组合数的递推式 $\binom{a}{b}=\binom{a-1}{b-1}+\binom{a-1}{b}$ 形式是相同的，由此可以判断下列等式成立：</p>
+<script type="math/tex; mode=display">
+P(a,b)=\binom{a}{b}</script><p>我们再来回顾一下二项式定理：</p>
+<script type="math/tex; mode=display">
+(a+b)^n= \sum_{i=0}^{n} \dbinom{n}{i}a^i b^{n-i}</script><p>将它的系数从前往后列出来：$\dbinom{n}{0},  \dbinom{n}{1} ,  \dbinom{n}{2} ,  \cdots ,  \dbinom{n}{n}$</p>
+<p>由 $P(a,b)=\dbinom{a}{b}$ 可以得到：这些数字刚好就是杨辉三角第 $n$ 行从前往后的数字！</p>
+<p>而这，就是杨辉三角和组合数之间的关系。</p>
+<hr>
+<h3 id="Ex-2-Catalan-数"><a href="#Ex-2-Catalan-数" class="headerlink" title="Ex.2 Catalan 数"></a>Ex.2 Catalan 数</h3><p>假如你在一个平面直角坐标系上，起点为 $(0,0)$ 。你一共可以移动 $2n$ 次，每次可以向右或向上走一格。我们规定，你在任意时刻往右走的次数都不能少于往上走的次数。问：当你走到点 $(n,n)$ 时，有多少种不同的路径？</p>
+<p>如果不按照规定来，方案则相当于在 $2n$ 次移动中选择 $n$ 次向上移动，总数为$\dbinom{2n}{n}$ 。</p>
+<p>所有方案总数求出来了，我们接下来想一想不符合规定的方案总数。<br>先来想一个问题，什么时候方案是不符合要求的？</p>
+<p>设你在移动若干次后的坐标为 $(a,b)$ , 根据 ”你在任意时刻往右走的次数都不能少于往上走的次数“ 这一规定，可以得到这个不等式：$a \geq b$ 。也就是说，<strong>我们在坐标系上，把 $y=x+1$ 这条线画出来，如果一条路径触碰到了这根线，它就不符合要求。</strong></p>
+<p>这种方案就是不符合要求的：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/wzlqalyl.png" alt=""></p>
+<p>我们再尝试对这个不符合要求的方案转换一下：</p>
+<p>所有的不符合要求的路径，都或多或少的触碰到了 $y=x+1$ 这一条直线。我们把第一次触碰到这条直线时的坐标记为 $(a,b)$ 。</p>
+<p>我们再把 $(a,b)$ 之后的路径全都按照 $y=x+1$ 这条直线对称过去，此时图片变成了这样：<br>（ 黑色：原路径     蓝色：对称后路径 ）</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/4nnopfuo.png" alt=""></p>
+<p>对称过后，终点坐标就变成了 $(n-1,n+1)$ 。而且，所有不符合规定的路径对称后就唯一对应着一条到 $(n-1,n+1)$ 的路径。不仅如此，<strong>所有到 $(n-1,n+1)$ 的一条路径也都唯一对应着一条不符合规定的路径</strong> 。（ 只需要再次对称回去就行了 ）从点 $(0,0)$ 到点 $(n-1,n+1)$ 的一条路径方案就相当于在 $2n$ 次移动操作中选取 $n+1$ 次的向上操作，总数为 $\binom{2n}{n+1}$ 。</p>
+<p>那么，所有符合规定的路径方案总数为 $\dbinom{2n}{n} - \dbinom{2n}{n+1}$ 。</p>
+<p>又因为 $\dbinom{a}{b} = \dbinom{a}{a-b}$ ，方案总数还可以表示为 $\dbinom{2n}{n} - \dbinom{2n}{n-1}$ 。</p>
+<p>而这，就是 <strong>Catalan 数</strong> 的通项公式。这个问题只是 Catalan 数的一种形式。</p>
+<hr>
+<h3 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h3><ol>
+<li>求证： $\sum_{i=0}^n\binom{n-i}{i}=F_{n+1}$ ，其中 $F$ 指斐波那契数列。</li>
+</ol>
+<p><strong>证明</strong>：考虑 <strong>数学归纳法</strong>，</p>
+<p>当 $n=0$ 时，$\dbinom{0}{0}=F_1=1$ 显然成立。当 $n=k$ 时，</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+F_k+F_{k-1}
+&=\sum_{i=0}^k\binom{k-i}{i}+\sum_{i=0}^{k-1}\binom{k-1-i}{i} \\
+&=\binom{k}{0}+\binom{k-1}{1}+\binom{k-2}{2}+\binom{k-3}{3}+\cdots+\binom{1}{k-1}+\binom{0}{k}\\
+&\ \ \ \ \ \ \ \ \ \ \ \ \ \ +\binom{k-1}{0} +\binom{k-2}{1}+\binom{k-3}{2}+\cdots+\binom{1}{k-2}+\binom{0}{k-1}\\
+&=\binom{k+1}{0}+\binom{k}{1}+\binom{k-1}{2}+\cdots+\binom{2}{k-1}+\binom{1}{k}+\binom{0}{k+1}\\
+&=\sum_{i=1}^{k+1}\binom{k+1-i}{i}=F_{k+1}\\
+&&\square
+\end{aligned}</script><ol>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6870"><strong>Zapina</strong></a> / 有 $n$ 个不同的人和 $n$ 道不同的题，当第 $i$ 个人开心时，当且仅当他被分配到 $i$ 道题。请求出让至少一个人开心的方案数。</li>
+</ol>
+<p><strong>答案 = 总方案数 - 所有人都不开心的方案数</strong> </p>
+<p>对于每道题而言，它都有 $n$ 个选择来去到一个人的手中。而又有 $n$ 道互不相同的题，根据乘法原理，所有总方案数自然就是 $n^n$ 。我们设 $f(i,j)$ 为到了第 $i$ 个人，分配了 $j$ 道题目后都不开心的方案数，易得</p>
+<script type="math/tex; mode=display">
+f(i,j)=\sum_{k=0}^j f(i-1,k)\times \binom{j}{k} \times [k\not=i]</script><p>其中 $[k\not=i]$ 表示判断语句。当语句内容为真时，值为 1。如果为假，值为 0。<br>初始值 $f(0,0)=0$ ，终值为 $f(n,n)$ ，答案即为 $n^n-f(n,n)$ 。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/0chfntrh"><strong>Python 伪代码</strong></a> / <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/yu31fw9x"><strong>C++ 关键代码</strong></a></p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://loj.ac/p/6513"><strong>「雅礼集训2018」足球大战</strong></a> / 有一场足球比赛，还有 $n$ 秒就结束了，比分还是 $0:0$ 。主队每秒进球概率为 $p$ ，客队每秒进球概率为 $q$ ，求主队的获胜概率。</li>
+</ol>
+<p>我们设 $T(i,j)$ 为队伍 $i$ （ $i=1$ 表示主队，$i=0$ 表示客队 ）进球 $j$ 次的概率。可以得到</p>
+<script type="math/tex; mode=display">
+P(\text{win})=\sum_{i=1}^nT(1,i)\sum_{j=0}^{i-1}T(0,j)</script><p>我们还可以得到，</p>
+<script type="math/tex; mode=display">
+T(i,j)=\begin{cases}p^j(1-p)^{n-j}\times\dbinom{n}{j} & (i=1) \\ q^j(1-q)^{n-j}\times\dbinom{n}{j} & (i=0)\end{cases}</script><p>我们又设 $S(k)=\sum_{i=0}^kT(0,i)$ ，可以得到如下递推式：</p>
+<script type="math/tex; mode=display">
+S(0)=T(0,0),\ S(n)=S(n-1)+T(0,n) \ (n\ge 1)</script><p>最后，再把这些式子整合在一起，可以得到</p>
+<script type="math/tex; mode=display">
+P(\text{win})=\sum_{i=1}^nT(1,i)\times S(i-1)</script><p>这里给出此题的 <a target="_blank" rel="noopener" href="https://loj.ac/s/969480"><strong>C++ 正解代码</strong></a> 。</p>
+<hr>
+<h3 id="All-In-All"><a href="#All-In-All" class="headerlink" title="All In All"></a>All In All</h3><p>我们学到了什么？</p>
+<ul>
+<li>排列组合的定义，计算和拓展</li>
+<li>二项式定理的公式和拓展</li>
+<li>杨辉三角和排列组合的关系</li>
+<li>Catalan 数</li>
+<li><strong>数学归纳法</strong></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://graphcities.github.io/2021/05/16/python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -209,7 +528,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-27 22:49:34" itemprop="dateModified" datetime="2021-05-27T22:49:34+08:00">2021-05-27</time>
+                <time title="修改时间：2021-05-27 22:57:03" itemprop="dateModified" datetime="2021-05-27T22:57:03+08:00">2021-05-27</time>
               </span>
 
           
@@ -234,7 +553,6 @@
 <p>在 Python 中，存在类似于数学草稿的东西，用于更好的理解程序，这个东西叫做 <strong>注释</strong>。</p>
 <p>注释的几种形式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只有一行的注释</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">多行注释</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">也是多行注释</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-
 <p>注释对于整个程序的运行没有任何作用，你甚至把它们删掉都不影响运行。</p>
 <hr>
 <ul>
@@ -254,30 +572,34 @@
 <li><strong>变量的类型</strong></li>
 </ul>
 <p>Python 中，常用的变量类型有四种：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">变量类型</th>
-<th align="center">存储内容</th>
+<th style="text-align:center">变量类型</th>
+<th style="text-align:center">存储内容</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><code>int</code></td>
-<td align="center">整数</td>
+<tbody>
+<tr>
+<td style="text-align:center"><code>int</code></td>
+<td style="text-align:center">整数</td>
 </tr>
 <tr>
-<td align="center"><code>float</code></td>
-<td align="center">浮点数（ 小数或整数加上 “.0” 就是浮点数 ）</td>
+<td style="text-align:center"><code>float</code></td>
+<td style="text-align:center">浮点数（ 小数或整数加上 “.0” 就是浮点数 ）</td>
 </tr>
 <tr>
-<td align="center"><code>str</code></td>
-<td align="center">字符串</td>
+<td style="text-align:center"><code>str</code></td>
+<td style="text-align:center">字符串</td>
 </tr>
 <tr>
-<td align="center"><code>bool</code>*</td>
-<td align="center">二进制值 True (1) 和 False (0)</td>
+<td style="text-align:center"><code>bool</code>*</td>
+<td style="text-align:center">二进制值 True (1) 和 False (0)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>注意</strong>：<code>float</code> 类型的浮点数一定要带上 <strong>小数点</strong> ，<code>str</code> 类型的字符串前后一定要加上 <strong>单引号或者双引号</strong> 。</p>
 <hr>
 <ul>
@@ -286,19 +608,15 @@
 <p>变量都有一个名称，叫做 <strong>变量名</strong>。变量名只能由字母，数字和下划线组成，而且 <strong>数字不能放在变量名开头</strong>。</p>
 <p><strong>「 Example 1 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a    <span class="comment"># 正确</span></span><br><span class="line">abc  <span class="comment"># 正确</span></span><br><span class="line">a1   <span class="comment"># 正确</span></span><br><span class="line">_a   <span class="comment"># 正确</span></span><br><span class="line">1a   <span class="comment"># 错误</span></span><br><span class="line">a?   <span class="comment"># 错误</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>注意</strong>：对于不同的变量，变量名 <strong>不能重复</strong>。</p>
 <p>定义变量的方式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">变量名 = 内容</span><br></pre></td></tr></table></figure>
-
 <p>在 Python 中，等号是 <strong>赋值</strong> 的意思。如果出现了 </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a=b</span><br></pre></td></tr></table></figure>
-
 <p>这种语句，则表示将变量 $b$ 的值给了变量 $a$ 。</p>
 <p><strong>注意</strong>：这个变量的类型由 <strong>等号后面的内容</strong> 所决定。</p>
 <p><strong>「 Example 2 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">3</span>      <span class="comment"># int</span></span><br><span class="line">a=-<span class="number">100</span>   <span class="comment"># int</span></span><br><span class="line">c=<span class="number">3.0</span>    <span class="comment"># float</span></span><br><span class="line">d=<span class="number">3.14</span>   <span class="comment"># float</span></span><br><span class="line">e=<span class="string">&quot;1&quot;</span>    <span class="comment"># str</span></span><br><span class="line">f=<span class="string">&#x27;abc&#x27;</span>  <span class="comment"># str</span></span><br><span class="line">g=???    <span class="comment"># 错误</span></span><br></pre></td></tr></table></figure>
-
 <hr>
 <ul>
 <li><strong>强制转换</strong></li>
@@ -306,39 +624,41 @@
 <p>一个变量是可以通过一种类型转换到另一种类型的。</p>
 <p><strong>「 Example 3 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">3</span>         <span class="comment"># 此时 a 为 int 类型</span></span><br><span class="line">b=<span class="built_in">float</span>(a)  <span class="comment"># 此时 b 为 float 类型</span></span><br><span class="line">c=<span class="built_in">int</span>(b)    <span class="comment">#     c 为 int 类型</span></span><br><span class="line">d=<span class="built_in">str</span>(c)    <span class="comment">#     d 为 str 类型</span></span><br><span class="line">e=<span class="built_in">float</span>(d)  <span class="comment">#     e 为 float 类型</span></span><br><span class="line">f=<span class="built_in">int</span>(c)    <span class="comment">#     f 为 int 类型</span></span><br><span class="line">g=<span class="built_in">str</span>(e)    <span class="comment">#     g 为 str 类型</span></span><br></pre></td></tr></table></figure>
-
 <p>但是，强制转换是有原则的：（*）</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">转换后 / 转换前</th>
-<th align="center">int</th>
-<th align="center">float</th>
-<th align="center">str</th>
+<th style="text-align:center">转换后 / 转换前</th>
+<th style="text-align:center">int</th>
+<th style="text-align:center">float</th>
+<th style="text-align:center">str</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><strong>int</strong></td>
-<td align="center">类型一致，<strong>无需转换</strong></td>
-<td align="center">向 <strong>零</strong> 取整</td>
-<td align="center">去掉两侧引号</td>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>int</strong></td>
+<td style="text-align:center">类型一致，<strong>无需转换</strong></td>
+<td style="text-align:center">向 <strong>零</strong> 取整</td>
+<td style="text-align:center">去掉两侧引号</td>
 </tr>
 <tr>
-<td align="center"><strong>float</strong></td>
-<td align="center">在后面加上 <code>.0</code></td>
-<td align="center">类型一致，<strong>无需转换</strong></td>
-<td align="center">去掉两侧引号</td>
+<td style="text-align:center"><strong>float</strong></td>
+<td style="text-align:center">在后面加上 <code>.0</code></td>
+<td style="text-align:center">类型一致，<strong>无需转换</strong></td>
+<td style="text-align:center">去掉两侧引号</td>
 </tr>
 <tr>
-<td align="center"><strong>str</strong></td>
-<td align="center">两侧加上引号</td>
-<td align="center">两侧加上引号</td>
-<td align="center">类型一致，<strong>无需转换</strong></td>
+<td style="text-align:center"><strong>str</strong></td>
+<td style="text-align:center">两侧加上引号</td>
+<td style="text-align:center">两侧加上引号</td>
+<td style="text-align:center">类型一致，<strong>无需转换</strong></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>「 Example 4 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下代码可以自己复制并编辑器内运行</span></span><br><span class="line"><span class="comment"># 输出应为: 5.0 5 3.6 3 -3</span></span><br><span class="line"></span><br><span class="line">a1=<span class="number">5</span></span><br><span class="line">a2=<span class="built_in">float</span>(a1)  <span class="comment"># a2=5.0</span></span><br><span class="line">a3=<span class="built_in">str</span>(a1)    <span class="comment"># a3=&quot;5&quot;</span></span><br><span class="line"></span><br><span class="line">b1=<span class="number">3.6</span></span><br><span class="line">b2=<span class="built_in">str</span>(b1)    <span class="comment"># b2=&quot;3.6&quot;</span></span><br><span class="line">b3=<span class="built_in">int</span>(b1)    <span class="comment"># b3=3</span></span><br><span class="line"></span><br><span class="line">c1=<span class="string">&quot;-3&quot;</span></span><br><span class="line">c2=<span class="built_in">int</span>(c1)    <span class="comment"># c2=-3</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a2,a3,b2,b3,c2)  <span class="comment"># Python 自带的输出操作</span></span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="2-运算-amp-输入输出"><a href="#2-运算-amp-输入输出" class="headerlink" title="2. 运算 &amp; 输入输出"></a>2. 运算 &amp; 输入输出</h2><p>在 Python 中，许多运算和数学上的运算十分相似。</p>
 <ul>
@@ -350,7 +670,6 @@
 <p><strong>注意</strong>：整数除法如果除不尽会 <strong>向下取整</strong>。</p>
 <p><strong>「 Example 1 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">3</span></span><br><span class="line">b=<span class="number">5</span></span><br><span class="line">c=a+b      <span class="comment"># c 的值为 8</span></span><br><span class="line">d=a-b      <span class="comment"># d 的值为 -2</span></span><br><span class="line"></span><br><span class="line">a1=<span class="number">3</span></span><br><span class="line">b1=<span class="number">5</span></span><br><span class="line">c1=a1*b1   <span class="comment"># c1 的值为 15</span></span><br><span class="line"></span><br><span class="line">a2=<span class="number">8</span></span><br><span class="line">b2=-<span class="number">8</span></span><br><span class="line">c2=<span class="number">3</span></span><br><span class="line">d2=a2//b2  <span class="comment"># d2 的值为 -1</span></span><br><span class="line">e2=a2//c2  <span class="comment"># e2 的值为 2</span></span><br><span class="line">f2=b2/c2   <span class="comment"># f2 的值为 -2.666...</span></span><br></pre></td></tr></table></figure>
-
 <hr>
 <ul>
 <li><strong>模运算和乘方运算</strong></li>
@@ -358,55 +677,42 @@
 <p>取余运算又叫 <strong>模运算</strong>。$a$ 除以 $b$ 得到的余数值也可以说成 $a$ <strong>模</strong> $b$ 的值。模运算用百分号 <code>%</code> 表示。乘方运算则是两个乘号 <code>**</code> ，运算符两边的东西可以是 int 类型，也可以是 float 类型。</p>
 <p><strong>「 Example 2 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">4</span></span><br><span class="line">b=<span class="number">3</span></span><br><span class="line">c=a**b   <span class="comment"># c 的值为 64</span></span><br><span class="line">d=a**<span class="number">0.5</span> <span class="comment"># d 的值为 2</span></span><br><span class="line">e=<span class="number">8</span>%b    <span class="comment"># e 的值为 2</span></span><br><span class="line">f=a%b    <span class="comment"># f 的值为 1</span></span><br></pre></td></tr></table></figure>
-
 <hr>
 <ul>
 <li><strong>输入和输出语句</strong></li>
 </ul>
 <p>这个语句用于输入：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">input</span>()</span><br></pre></td></tr></table></figure>
-
 <p>输入的内容被系统默认是 <strong>字符串</strong>，也就是 str 类型。如果你想要输入一个数字，请输入后进行 <strong>强制转换</strong>。括号中也可以填写一些东西，表示输入之前屏幕上会显示些什么。</p>
 <p><strong>注意</strong>：这个语句会直接读入 <strong>一行</strong> 的内容。如果你在一行中输入了两个数字，中间带一个空格，使用输入语句然后转换到 int 类型的话，是会 <strong>转换失败</strong> 的。（ 因为那个空格也被当作了待转换的内容 ）</p>
 <p><strong>「 Example 3 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="built_in">input</span>(<span class="string">&quot;Hello,world!&quot;</span>) <span class="comment"># a 为 str 类型</span></span><br><span class="line">b=<span class="built_in">int</span>(<span class="built_in">input</span>())          <span class="comment"># b 为 int 类型</span></span><br><span class="line">c=<span class="built_in">float</span>(<span class="built_in">input</span>(<span class="number">1903</span>))    <span class="comment"># c 为 float 类型</span></span><br></pre></td></tr></table></figure>
-
 <p>这个语句用于输出：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>()</span><br></pre></td></tr></table></figure>
-
 <p>你可以将变量，数字，字符串等直接放到括号里面输出。</p>
 <p><strong>「 Program 1 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">5</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line">b=<span class="string">&#x27;abc&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">233</span>)</span><br></pre></td></tr></table></figure>
-
 <p>输出内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">abc</span><br><span class="line">233</span><br></pre></td></tr></table></figure>
-
 <p>如果你需要输出多个内容（ 类型可以不同 ），就需要在语句的括号内用 <strong>逗号</strong> 隔开它们。这些内容输出时，中间会显示一个空格。</p>
 <p><strong>「 Program 2 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">5</span></span><br><span class="line">b=<span class="number">3.14</span></span><br><span class="line">c=<span class="string">&quot;orz&quot;</span></span><br><span class="line"><span class="built_in">print</span>(a,b)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;wow&quot;</span>,<span class="number">233</span>,c)</span><br></pre></td></tr></table></figure>
-
 <p>输出内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5 3.14</span><br><span class="line">wow 233 orz</span><br></pre></td></tr></table></figure>
-
 <p>我们可以发现，每次执行完 <code>print()</code> 操作之后都会再输出一个字符。这个字符一般是 <strong>空行</strong>。在输出后面加上一些东西就可以来更改最后再输出的一个字符。(*)</p>
 <p><strong>「 Program 3 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">5</span></span><br><span class="line">b=<span class="string">&#x27;abc&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a,end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br></pre></td></tr></table></figure>
-
 <p>输出内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5 abc</span><br></pre></td></tr></table></figure>
-
 <p>当然，这样也是可以的：</p>
 <p><strong>「 Program 4 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="number">1</span>;b=<span class="number">2</span>;c=<span class="number">3</span>;d=<span class="number">4</span>;e=<span class="number">5</span>;f=<span class="number">6</span>;   <span class="comment"># 通过分号将多个语句合并在一行</span></span><br><span class="line"><span class="built_in">print</span>(a,b,c,end=<span class="string">&quot;k abc!\n&quot;</span>) <span class="comment"># 空行的字符为 &#x27;\n&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(d,end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(e)</span><br><span class="line"><span class="built_in">print</span>(f)</span><br></pre></td></tr></table></figure>
-
 <p>输出内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 2 3k abc!</span><br><span class="line">4 5</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
-
 <hr>
 <h2 id="4-循环语句"><a href="#4-循环语句" class="headerlink" title="4. 循环语句"></a>4. 循环语句</h2><p><strong>「 Example 1 」</strong></p>
 <p>有一天，轩轩要求你要用 Python 输出 1-5 的所有整数。于是你立刻写出了这段代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">4</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
 <p>接下来，他又要求你输出 1-20 的所有整数。你并不像轩轩那样勤奋，于是你开始寻找一个更加优秀的方法。那个方法就是 <strong>循环</strong> 。</p>
 <hr>
 <ul>
@@ -415,33 +721,24 @@
 <p>有时，我们需要做一件事很多遍，为了不写过多重复的代码，我们需要循环。在教材中，循环语句是 <strong>for</strong> 语句。其实，还有一种称作 while 语句的循环，你可以自行查阅探索。</p>
 <p>for 语句的结构如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 变量 <span class="keyword">in</span> 循环节 :</span><br><span class="line">    循环体</span><br></pre></td></tr></table></figure>
-
 <p>跟 if 语句一样，后面的逗号和循环体的缩进一定不能忘记。</p>
 <p>输出 1-20 的所有整数，用 for 语句可以这样实现：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>,<span class="number">19</span>,<span class="number">20</span>):</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
-
 <p>其中，循环的变量是 i ，循环节是那一大块的括号，循环体则是 print 语句。</p>
 <p>而且，循环节还可以是字符串。For example，</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">&quot;ab12c3&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
-
 <p>其中 i 表示的是字符串 s 中的每一个字符。</p>
 <p>输出：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a</span><br><span class="line">b</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">c</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-
 <p>同样的，你也可以这样做：</p>
 <hr>
 <p><strong>「 Program 1 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>):</span><br><span class="line">    <span class="built_in">print</span>(i,i*i,i*i+<span class="number">2</span>*i+<span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;nice job!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
 <p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1 1 4</span><br><span class="line">nice job!</span><br><span class="line">2 4 9</span><br><span class="line">nice job!</span><br><span class="line">3 9 16</span><br><span class="line">nice job!</span><br><span class="line">4 16 25</span><br><span class="line">nice job!</span><br><span class="line">5 25 36</span><br><span class="line">nice job!</span><br><span class="line">6 36 49</span><br><span class="line">nice job!</span><br></pre></td></tr></table></figure>
-<hr>
-<p><strong>「 Program 2 」</strong></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1 1 4</span><br><span class="line">nice job!</span><br><span class="line">2 4 9</span><br><span class="line">nice job!</span><br><span class="line">3 9 16</span><br><span class="line">nice job!</span><br><span class="line">4 16 25</span><br><span class="line">nice job!</span><br><span class="line">5 25 36</span><br><span class="line">nice job!</span><br><span class="line">6 36 49</span><br><span class="line">nice job!</span><br></pre></td></tr></table></figure></h2><p><strong>「 Program 2 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">now=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">11</span>):</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">    now=now+i</span><br><span class="line">    <span class="built_in">print</span>(now)</span><br><span class="line"><span class="built_in">print</span>(now*now)</span><br></pre></td></tr></table></figure>
-
 <p>输出：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">1</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">9</span><br><span class="line">7</span><br><span class="line">16</span><br><span class="line">9</span><br><span class="line">25</span><br><span class="line">11</span><br><span class="line">36</span><br><span class="line">1296</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><strong>「 Example 2 」</strong></p>
 <p>轩轩继续要求你输出 1-100 的整数。</p>
@@ -453,33 +750,26 @@
 </ul>
 <p>for 循环使用 range 语句后，结构会变成这样：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 变量 <span class="keyword">in</span> <span class="built_in">range</span>(起始,终值,步长):</span><br><span class="line">    循环体</span><br></pre></td></tr></table></figure>
-
 <p>range 语句中，起始指的是循环开始的数字，终值表示循环到哪个数字会结束，而步长是指循环一次会跳过多少个数字。<strong>注意：循环在起始处开始运行，将要到终值时结束，不会循环到终值这个数字。</strong></p>
 <p>如果上面那句话你还不懂，请看下面的例子：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">range</span>(<span class="number">1</span>,<span class="number">100</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
 <p>指的是 1-<strong>99</strong> 之间的数字，而</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">range</span>(<span class="number">1</span>,<span class="number">101</span>,<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
 <p>才是指 1-100 之间的数字。</p>
 <p>同样的：</p>
 <hr>
 <p><strong>「 Example 3 」</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">range</span>(<span class="number">1</span>,<span class="number">101</span>,<span class="number">2</span>)  <span class="comment"># 1-100 之间的奇数</span></span><br><span class="line"><span class="built_in">range</span>(<span class="number">0</span>,<span class="number">101</span>,<span class="number">2</span>)  <span class="comment"># 1-100 之间的偶数</span></span><br><span class="line"><span class="built_in">range</span>(<span class="number">100</span>,<span class="number">0</span>,-<span class="number">1</span>) <span class="comment"># 1-100 的倒序</span></span><br><span class="line"><span class="built_in">range</span>(a,b+<span class="number">1</span>,<span class="number">1</span>)  <span class="comment"># a-b 之间的数字</span></span><br></pre></td></tr></table></figure>
-
 <p>于是，期末考试第三题便可以这样完成：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>,<span class="number">2</span>):</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
-
 <p>或者是这样：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span>(i%<span class="number">2</span>==<span class="number">1</span>):</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><strong>「 Problem 1 」<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/T166454">T166454 山峰和山谷</a></strong></p>
 <p>可以发现，如果要判断 $i$ 是否是山峰 / 山谷，就必须要知道它的前面一个和后面一个。前面一个很好求，用一个变量记录下来就可以了。但是，后面一个该怎么求呢？</p>
-<p>其实，我们只需要记录下来 $pre$（前一座山峰的高度）和 $pre2$ （前面第二座山峰的高度）即可。当循环到 $i$ 的时候，我们只需要判断 $pre$ 和 $pre2, \ h_i$ 的大小关系即可。如果 $pre&lt;pre2, \ h_i$ ，那么前面一座山峰是山谷。山峰也是同理。</p>
+<p>其实，我们只需要记录下来 $pre$（前一座山峰的高度）和 $pre2$ （前面第二座山峰的高度）即可。当循环到 $i$ 的时候，我们只需要判断 $pre$ 和 $pre2,  h_i$ 的大小关系即可。如果 $pre&lt;pre2,  h_i$ ，那么前面一座山峰是山谷。山峰也是同理。</p>
 <p>注意要及时更改 $pre$ 和 $pre2$ 的值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">pre=<span class="number">0</span>;pre2=<span class="number">0</span>;ans1=<span class="number">0</span>;ans2=<span class="number">0</span></span><br><span class="line"><span class="comment"># 通过分号把四条语句压到一行</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">    now=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    <span class="keyword">if</span>(i&gt;<span class="number">2</span> <span class="keyword">and</span> i&lt;=n): <span class="comment"># 先决条件,思考为什么是这样</span></span><br><span class="line">        <span class="keyword">if</span>(pre&gt;now <span class="keyword">and</span> pre&gt;pre2):</span><br><span class="line">            ans1=ans1+<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(pre&lt;now <span class="keyword">and</span> pre&lt;pre2):</span><br><span class="line">            ans2=ans2+<span class="number">1</span></span><br><span class="line">    pre2=pre;pre=now</span><br><span class="line"><span class="built_in">print</span>(ans1,ans2)</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><strong>「 Problem 2 」<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7285">「EZEC-5」修改数组</a></strong></p>
 <p>证明：数组（ 假设为 $a$ ）中 $x-y$ 的最大值就是数组中 1 的个数。</p>
@@ -487,7 +777,6 @@
 <p>构造出这个方案也很简单——既然不管怎么样 $x$ 和 $y$ 都会增加 1，那就把整个数组全改为 1 即可。</p>
 <p>下面这段代码过不去（ 输入输出被卡住了 ），但是意思相同：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">t=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line"><span class="keyword">for</span> Test <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,t+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">    n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    ans=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">int</span>(<span class="built_in">input</span>())==<span class="number">1</span>): <span class="comment"># 统计1的个数</span></span><br><span class="line">            ans=ans+<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(ans)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>): <span class="comment"># 输出方案(全为1)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><strong>「 Problem 3 」<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2415">P2415 集合求和</a></strong></p>
 <p>我们考虑第 1 个数字会给整个和做出多少的贡献。<br>第一个数为答案做出的贡献即为第 1 个数字的大小 × 有多少个子集包含它。</p>
@@ -495,14 +784,12 @@
 <p>所以答案为 $\sum_{i=1}^ns_i\times2^{n-1}$ 。（所有数之和乘上 $2^{n-1}$）</p>
 <p>下面这段代码过不去（ 输入输出被卡住了 ），但是意思相同：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">ans=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>,<span class="number">1</span>): <span class="comment"># 统计和</span></span><br><span class="line">    ans=ans+<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n,<span class="number">1</span>): <span class="comment"># 乘方运算</span></span><br><span class="line">    ans=ans*<span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(ans)</span><br></pre></td></tr></table></figure>
-
 <hr>
 <ul>
 <li><strong>循环嵌套</strong></li>
 </ul>
 <p>循环里面不仅可以套 if 语句，还可以在里面再套一个循环。比如，打印一个九九乘法表，你可以这样：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10</span>,<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,i+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">        <span class="built_in">print</span>(i,<span class="string">&#x27;×&#x27;</span>,j,<span class="string">&#x27;=&#x27;</span>,i*j,end=<span class="string">&#x27;  &#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
-
 <p>（ 请自行运行得到输出 ）</p>
 <hr>
 <p><strong>「 Problem 4 」<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/T141821">T141821 表达式计算</a></strong></p>
@@ -510,19 +797,15 @@
 <p>（ 注意 Python 一秒钟最多运行 $10^7$ 次。 ）</p>
 <p><strong>40pts</strong> /</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">ans=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,i+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">        ans=ans+j</span><br><span class="line"><span class="built_in">print</span>(ans)</span><br></pre></td></tr></table></figure>
-
 <p><strong>100pts (1)</strong> /</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">ans=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">    ans=ans+i*(n-i+<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(ans)</span><br></pre></td></tr></table></figure>
-
 <p><strong>100pts (2)</strong> /</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">ans=<span class="number">0</span>;now=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,n+<span class="number">1</span>,<span class="number">1</span>):</span><br><span class="line">    now=now+i</span><br><span class="line">    ans=ans+now</span><br><span class="line"><span class="built_in">print</span>(ans)</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><strong>「 Problem 5 」<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1255">P1255 数楼梯</a></strong></p>
 <p>学过小学奥数的我们都知道，设 $f(i)$ 为上到第 $i$ 阶的走法，那么很容易得到 $f(i)=f(i-1)+f(i-2)$ 。跟Problem 1 一样，我们可以用变量 $pre$ 记录前一个的函数值，$pre2$ 记录前面第二个的函数值。</p>
 <p>依旧要注意要及时更改 $pre$ 和 $pre2$ 的值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line"><span class="keyword">if</span>(n==<span class="number">0</span>): <span class="built_in">print</span>(<span class="number">0</span>) <span class="comment"># 注意对特殊情况的判断</span></span><br><span class="line"><span class="keyword">if</span>(n==<span class="number">1</span>): <span class="built_in">print</span>(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">if</span>(n==<span class="number">2</span>): <span class="built_in">print</span>(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">if</span>(n&gt;<span class="number">2</span>):</span><br><span class="line">    pre=<span class="number">2</span>;pre2=<span class="number">1</span>;now=<span class="number">0</span> <span class="comment"># 思考pre和pre2的值为什么是这样</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>,n+<span class="number">1</span>,<span class="number">1</span>): <span class="comment"># 思考为什么从3开始</span></span><br><span class="line">        now=pre+pre2</span><br><span class="line">        pre2=pre;pre=now</span><br><span class="line">    <span class="built_in">print</span>(now)</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><strong>「 Extra Problem 」<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP8496">SP8496 No Squares Numbers</a></strong></p>
 <p>这道题目中，我们可以发现 4 个循环：</p>
@@ -535,7 +818,6 @@
 <p>完成这四个循环，需要你有一定的思维能力和代码能力。Have a try！</p>
 <p>下面这段代码过不去（ 输入输出和时间被卡住了 ），但是意思相同：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">t=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line"><span class="keyword">for</span> test <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,t+<span class="number">1</span>,<span class="number">1</span>): <span class="comment"># 每一组数据为一个循环</span></span><br><span class="line">    a=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    b=<span class="built_in">int</span>(<span class="built_in">input</span>())</span><br><span class="line">    c=<span class="built_in">input</span>()</span><br><span class="line">    ans=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(a,b+<span class="number">1</span>,<span class="number">1</span>): <span class="comment"># [a,b]中的数为一个循环</span></span><br><span class="line">        flag1=<span class="number">1</span></span><br><span class="line">        flag2=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">400</span>,<span class="number">1</span>): <span class="comment"># 枚举每个平方数看能不能整除它为一个循环</span></span><br><span class="line">            <span class="keyword">if</span>(j*j&lt;=i <span class="keyword">and</span> i%(j*j)==<span class="number">0</span>):</span><br><span class="line">                flag1=<span class="number">0</span></span><br><span class="line">        s=<span class="built_in">str</span>(i)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> s: <span class="comment"># 枚举每个数位,寻找数字c为一个循环</span></span><br><span class="line">            <span class="keyword">if</span>(j==c):</span><br><span class="line">                flag2=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(flag1==<span class="number">1</span> <span class="keyword">and</span> flag2==<span class="number">1</span>):</span><br><span class="line">            ans=ans+<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(ans)</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p><strong>「 Practice Time 」</strong></p>
 <ul>
@@ -550,8 +832,7 @@
 <li><p><strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5723">P5723 质数口袋</a></strong></p>
 <p><strong>提示</strong> / 如果 $n$ 是质数，那么 $[2,\sqrt{n}]$ 的数都不能整除它。</p>
 <pre><code>       请注意和之前 if 语句的并列，break 语句和循环嵌套知识灵活运用。
-</code></pre>
-<p><strong>难度</strong> / 普及组 T2-T3</p>
+</code></pre><p><strong>难度</strong> / 普及组 T2-T3</p>
 </li>
 <li><p><strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/T166516">T166516 神奇的题目</a></strong></p>
 <p><strong>提示</strong> / 想一想数学课上老师教过你什么知识。</p>
@@ -647,12 +928,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -740,6 +1021,61 @@
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
