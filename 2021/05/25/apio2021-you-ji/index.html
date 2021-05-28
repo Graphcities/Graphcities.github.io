@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"graphcities.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="春风暖暖的。它东跑跑，西逛逛，忙个不停。它一吹小草，小草就绿了;一吹小花，小花就开了;一吹柳丝，柳丝就露出了嫩芽。哦，春风是画家，是它染绿了大地;春风是魔术师，是它变出了盛开的百花。看，这会儿，它又在和柳丝舞蹈、和小花玩耍呢。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APIO2021 游记">
+<meta property="og:url" content="https://graphcities.github.io/2021/05/25/apio2021-you-ji/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="春风暖暖的。它东跑跑，西逛逛，忙个不停。它一吹小草，小草就绿了;一吹小花，小花就开了;一吹柳丝，柳丝就露出了嫩芽。哦，春风是画家，是它染绿了大地;春风是魔术师，是它变出了盛开的百花。看，这会儿，它又在和柳丝舞蹈、和小花玩耍呢。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-25T14:21:26.000Z">
+<meta property="article:modified_time" content="2021-05-28T11:29:48.840Z">
+<meta property="article:author" content="Graphcity">
+<meta property="article:tag" content="游记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://graphcities.github.io/2021/05/25/apio2021-you-ji/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>APIO2021 游记 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://graphcities.github.io/2021/05/25/apio2021-you-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Graphcity">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          APIO2021 游记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-25 22:21:26" itemprop="dateCreated datePublished" datetime="2021-05-25T22:21:26+08:00">2021-05-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-28 19:29:48" itemprop="dateModified" datetime="2021-05-28T19:29:48+08:00">2021-05-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>春风暖暖的。它东跑跑，西逛逛，忙个不停。它一吹小草，小草就绿了;一吹小花，小花就开了;一吹柳丝，柳丝就露出了嫩芽。哦，春风是画家，是它染绿了大地;春风是魔术师，是它变出了盛开的百花。看，这会儿，它又在和柳丝舞蹈、和小花玩耍呢。<br><span id="more"></span><br>春雨甜甜的。它让万物苏醒，焕发勃勃生机。竹笋喝后，就从土里迫不急待地冒出地面，它好像非常渴望光明，再也不愿待在黑暗的世界。百花喝后，开得更娇艳了，它们在风中欢快地跳舞，像是在向春雨致谢呢。万木喝后，长得越来越高、越来越壮，像一个个哨兵站得更笔直了。瞧，孩子们正在雨中奔跑、玩耍，还撒下了一路欢声笑语。真是一个快乐的春天!</p>
+<p>春使靓靓的。植物王国的春使是迎春花，黄色的小花露出笑脸，带花的枝条像小姑娘时髦的发辫。动物王国的春使是燕子，它们斜着身子在空中掠过，唧唧地叫着，传递着春的消息。当人们看到迎春花开、燕子归来，就知道春姑娘来了。</p>
+<p>春天，又到了考 APIO 的季节！</p>
+</blockquote>
+<hr>
+<h3 id="Day-N"><a href="#Day-N" class="headerlink" title="Day -N"></a>Day -N</h3><blockquote>
+<p>对人们来说，春天是一年的开始，也象徵着新的希望。农夫忙着犁田，插秧，学生准备开学用品，希望今年有个好的开始，就如同洒下的种子般，能够成功的发芽，开花，结果，不论有任何困难，都要勇敢面对。也因为人们是这麽去思考的，所以春天才象徵着新希望。</p>
+</blockquote>
+<p><del>发现自己不会写数据结构了</del></p>
+<p>每天听课轮番轰炸后直接下线，<del>san 值狂掉</del></p>
+<p>好像三道题都是交互题，完了，我一道交互没做</p>
+<p>听说可以开卷？！那万一有原题是不是可以直接抄题解？！（然而真中了）</p>
+<hr>
+<h3 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h3><blockquote>
+<p>春是什么？春是那明月清风，柔媚清朗，在苔痕映照的静寂林间，清冽缠绵的旋律翩然飘临，希望伴着歌声在阳光中冉冉升起。春是那淡雨疏风，薄雾浓云，笼住水边清香的荫影，生命在这朦胧凄迷的氛围中孕育而生。</p>
+</blockquote>
+<p>开考前 10min 几乎把自己毕生所学的所有模板全都复制了下来，<del>后来发现一个都没用到</del></p>
+<p>因为有 IOI 赛制，开考很愉快。</p>
+<p>但是由于学校机房太烂没有 C++17 交互题只能够手写交互库差评。</p>
+<ul>
+<li><strong>前 20min</strong></li>
+</ul>
+<blockquote>
+<p>万物在春晨中醒来，展示着生命的可贵、诱人。</p>
+</blockquote>
+<p>看题去了</p>
+<p>第一题，smg，直接跳过。</p>
+<p>第二题，感觉是一个有点意思的图论题，应该可以骗点分。</p>
+<p>第三题，发现有点像奇奇怪怪的网络流 / 树形dp，但总比第一题好一点。</p>
+<p>开题顺序：2 $\to$ 3 $\to$ 1</p>
+<ul>
+<li><strong>接下来的 1h</strong></li>
+</ul>
+<blockquote>
+<p>春晨点染心中的希望，激发着人生的热情。</p>
+</blockquote>
+<p>做第二题的暴力去了。</p>
+<p>前面五次提交基本都在试交互题怎么写。</p>
+<p>由于这是 IOI 赛制，而且每个子任务按照最高分计算，暴力还是挺好打的。</p>
+<p>前面三个子任务直接单调栈暴力建图，然后 bfs $O(n^2)$，37pts 到手！<del>但没想到这样就有 Cu。</del></p>
+<ul>
+<li><strong>接下来的又 1h</strong></li>
+</ul>
+<blockquote>
+<p>春是活泼的、春是狂热的、春是姿意生长的、春是年青旺盛的。</p>
+</blockquote>
+<p>做第三题的暴力去了。</p>
+<p>只会写排序和简单 dp 的我甚至连 $O(n^2)$ 的部分分都不会。12pts。</p>
+<ul>
+<li><strong>接下来的所有时间</strong></li>
+</ul>
+<blockquote>
+<p>田野里、花园里和森林里都有着春姑娘留下足迹，她把大地装饰得美丽、祥和。</p>
+</blockquote>
+<p>APIO 有印尼宽带和土豆服务器的加持，网速真是太快了！很快就到他家门口！</p>
+<p>APIO 第一次创立了 IOIOI 赛制！</p>
+<p>预计得分：0+37+12=49pts</p>
+<p>实际得分：0+37+12=49pts</p>
+<p>扫雷真快乐！小恐龙真快乐！</p>
+<ul>
+<li><strong>感想</strong></li>
+</ul>
+<blockquote>
+<p>没有春的万紫千红？哪来秋的硕果累累？</p>
+</blockquote>
+<p>成功的地方：</p>
+<p>铜牌一枚，扫雷过关，小恐龙玩的很开心，第一次体验印尼宽带的魅力很好玩，旁边就是 iodwad 巨佬</p>
+<p>不足的地方：</p>
+<p>扫雷在最后几步挂掉，小恐龙刚到 1000 分就被撞，没有充足的休息时间</p>
+<hr>
+<h3 id="Day-N-1"><a href="#Day-N-1" class="headerlink" title="Day N"></a>Day N</h3><blockquote>
+<p>柳树舒展开了黄绿嫩叶的枝条，在微微的春风中轻柔地拂动，就像一群群身着绿装的仙女在翩翩起舞。夹在柳树中间的桃树也开出了鲜艳的花朵，绿的柳，红的花，真是美极了！</p>
+</blockquote>
+<p>第一题第二题第三题依旧不会。</p>
+<p>我成为了时代的眼泪</p>
+<hr>
+<blockquote>
+<p>春姑娘，你在哪儿呢？在和我们玩捉迷藏吗？我们找呀找呀。忽然听见一阵“叽叽”的叫声，抬头一看，原来是一群活泼可爱的小燕子，它们拖着剪刀似的小尾巴，排着整齐的队伍，从北方飞回到久别的故乡——南方。它们一边拍打着翅膀，一边欢快地叫着，仿佛在说“春天来了，春天来了!”是的，春天真的来了!我情不自禁地对小燕子大喊道：“春姑娘，你好，我找到你了!” </p>
+<p>告别了小燕子，我们来到草地上寻找春姑娘。嫩绿的小草已经探出了小脑袋，那是春天的眉毛吧！一阵春风吹来，小草随着风摇摆起来，好像在风里快乐地翩翩起舞。它们有的舒展开自己的双臂，有的弯下腰，有的摇头晃脑……瞧它们跳得多开心啊！还有各种各样的奇花异草都赶到这里来聚会。它们颜色各异，群芳吐艳，有的几十朵连在一起，一丛丛、一簇簇，真像一群团结友善的小朋友。看见这情景，我不禁脱口而出：“春姑娘，我找到你了，你多美丽呀！” </p>
+<p>就在这时，天空突然飘下丝丝细线。“咦！这是什么，那么细，那么密！像牛毛，像银针。”我们伸出双手，悄悄接住这“细细的线”，只见它落在我们的手心，凉凉的，润润的。用舌尖轻轻一舔，有股甜甜的味道，不再有寒意，也不再刺骨。都说“春雨贵如油”，还真是呀！这蒙蒙的细雨落在小草上，草儿们争先恐后地伸长着脖子不断地吮吸着。花儿们则张开笑脸，变得更加娇羞欲滴。“找到了，找到了，春姑娘真的来到了我们的身边！”我们张开双臂欢呼着。 </p>
+<p>APIO2021，就像春天一样到来了！</p>
+</blockquote>
+<p>首 尾 呼 应，升 华 主 题，点 明 中 心</p>
+<hr>
+<p>再 次 加 更</p>
+<h3 id="生活在-APIO2021-上"><a href="#生活在-APIO2021-上" class="headerlink" title="生活在 APIO2021 上"></a>生活在 APIO2021 上</h3><blockquote>
+<p>现代计算机科学以CCF的“做干净的奥赛”为嚆矢。滥觞于哲学与数学的期望正失去它们的借鉴意义。但面对看似无垠的未来天空，我想循老K“好的代码本身就是最好的文档。当你打算加注释的时候，问问自己“我如何改善代码以至于不需要注释？””好过过早地振翮。</p>
+<p>我们怀揣热忱的灵魂天然被赋予对超越性的追求，不屑于古旧坐标的约束，钟情于在别处的芬芳。但当这种期望流于对IOIOI主义不假思索的批判，乃至走向印尼宽带与ssh主义时，便值得警惕了。与秩序的落差、错位向来不能为越矩的行为张本。而纵然我们已有翔实的蓝图，仍不能自持已在浪潮之巅立下了自己的沉锚。</p>
+<p>“任何计算机科学领域的问题都能通过ssh来解决。然而这通常会带来其他问题。”AKssh5307之言可谓切中了肯綮。人的突发性性是不可祓除的，而我们欲上青云也无时无刻不在因风借力。数学与哲学暂且被我们把握为一个薄脊的符号客体，一定程度上是因为我们尚缺乏体验与阅历去支撑自己的认知。而这种偏见的傲慢更远在知性的傲慢之上。</p>
+<p>在孜孜矻矻以求计算机科学意义的道路上，对自己的期望本就是在与数学与哲学对接中塑型的动态过程。而我们的底料便是对不同暴力、不同倍增的觉感与体认。NOI为杜子德送去计算几何，又维系SSH。他的计算机科学观念是厚实的，也是实践的。倘若我们在对过往借Qiuly之言“祓魅”后，又对不断膨胀的自我进行“赋魅”，那么在丢失外界预期的同时，未尝也不是丢了自我。</p>
+<p>毫无疑问，从哲学与数学角度一觇的自我有偏狭过时的成分。但我们所应摒弃的不是对此的批判，而是其批判的廉价，其对批判投诚中的反智倾向。在zaixianmojulao的观念中，如果在成为狮子与孩子之前，略去了像骆驼一样背负前人遗产的过程，那其“永远重复”洵不能成立。</p>
+<p>蓝图上的落差终归只是理念上的区分，在实践场域的分野也未必明晰。譬如当我们追寻模板时，在途中涉足网络流，这究竟是伴随着期望的泯灭还是期望的达成？在我们塑造计算机科学的同时，计算机科学也在浇铸我们。既不可否认原生的网络流畅性与时效性性，又承认自己的图景有轻狂的失真，不妨让体验走在言语之前。用不被禁锢的头脑去体味CCF_NOI的大海与风帆，并效huhao，对无法言说之事保持沉默。</p>
+<p>用在APIO2021上的生活方式体现个体的超越性，保持婞直却又不拘泥于所谓“遗世独立”的单向度形象。这便是Qiuly为我们提供的理想期望范式。生活在APIO2021上——始终热爱大地——升上天空。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%B8%E8%AE%B0/" rel="tag"># 游记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/17/mo-bi-wu-si-fan-yan-ji-qiao/" rel="prev" title="莫比乌斯反演技巧">
+      <i class="fa fa-chevron-left"></i> 莫比乌斯反演技巧
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/25/luogu-p3466klo-building-blocks-jie-ti-bao-gao/" rel="next" title="Luogu P3466「KLO-Building blocks」解题报告">
+      Luogu P3466「KLO-Building blocks」解题报告 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Day-N"><span class="nav-number">1.</span> <span class="nav-text">Day -N</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Day-1"><span class="nav-number">2.</span> <span class="nav-text">Day 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Day-N-1"><span class="nav-number">3.</span> <span class="nav-text">Day N</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%B4%BB%E5%9C%A8-APIO2021-%E4%B8%8A"><span class="nav-number">4.</span> <span class="nav-text">生活在 APIO2021 上</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Graphcity</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Graphcity</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+  
+</body>
+</html>
