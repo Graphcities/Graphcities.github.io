@@ -534,6 +534,7 @@ P(\text{win})=\sum_{i=1}^nT(1,i)\times S(i-1)</script><p>这里给出此题的 <
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -746,6 +747,26 @@ P(\text{win})=\sum_{i=1}^nT(1,i)\times S(i-1)</script><p>这里给出此题的 <
     
 
   
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '4c04d9b1bb4d33cbbc02',
+      clientSecret: 'a40ec03a7e34c32a1f4a4bfb8795d80d59636796',
+      repo        : 'Graphcities',
+      owner       : 'Graphcities',
+      admin       : ['Graphcities'],
+      id          : 'bfa575e07f221af5b9bbd02c862cd824',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 
   
