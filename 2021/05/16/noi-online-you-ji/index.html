@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"graphcities.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="期望得分：0+0+25&#x3D;25pts 实际得分：0+0+25&#x3D;25pts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NOI Online 游记">
+<meta property="og:url" content="https://graphcities.github.io/2021/05/16/noi-online-you-ji/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="期望得分：0+0+25&#x3D;25pts 实际得分：0+0+25&#x3D;25pts">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-15T16:11:50.000Z">
+<meta property="article:modified_time" content="2021-05-28T11:00:23.082Z">
+<meta property="article:author" content="Graphcity">
+<meta property="article:tag" content="游记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://graphcities.github.io/2021/05/16/noi-online-you-ji/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>NOI Online 游记 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://graphcities.github.io/2021/05/16/noi-online-you-ji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Graphcity">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NOI Online 游记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-16 00:11:50" itemprop="dateCreated datePublished" datetime="2021-05-16T00:11:50+08:00">2021-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-28 19:00:23" itemprop="dateModified" datetime="2021-05-28T19:00:23+08:00">2021-05-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>期望得分：0+0+25=25pts</p>
+<p>实际得分：0+0+25=25pts</p>
+<span id="more"></span>
+<h3 id="愤怒的小-N"><a href="#愤怒的小-N" class="headerlink" title="愤怒的小 N"></a>愤怒的小 N</h3><p><strong>预计得分</strong> : 0/100</p>
+<p>我们设 $h(n)=(-1)^{pop(n)}$ , $pop(n)$ 为 $n$ 的二进制中 1 的奇偶性，$f(i)$ 是一个 $k$ 项多项式，请求出</p>
+<script type="math/tex; mode=display">
+\frac{1}{2}\sum_{i=0}^{n-1} (1-h(i))f(i)</script><p>这是一个神奇的推式子题，但我不会做，我被区分了 /fad</p>
+<hr>
+<h3 id="积木小赛"><a href="#积木小赛" class="headerlink" title="积木小赛"></a>积木小赛</h3><p><strong>预计得分</strong> : 0/100</p>
+<p>对于两个字符串 $S,T$ ，请求出使得 $S$ 的一个子序列等于 $T$ 的一个子串的方案数。</p>
+<p>我们可以用 $O(n^2)$ 的时间复杂度找出一某个位置为开头，最后能够延展到的字符 $r_i$ 。对于这 $O(n^2)$ 个子串，可能会有一些是重复的，所以我们要比对他们的哈希值来判重。注意判重的时候不要用 map，常数较大，建议排序解决。另外，本题卡模数，常见的 998244353 会被卡，时间复杂度 $O(n^2\log n^2)$ 。</p>
+<hr>
+<h3 id="岛屿探险"><a href="#岛屿探险" class="headerlink" title="岛屿探险"></a>岛屿探险</h3><p><strong>预计得分</strong> : 25/100</p>
+<p>有一个 $n$ 个数的数列 $p$ 和 $m$ 个询问 $q$ ，数列中第 $i$ 项包含两个值 $a$ , $b$ ，每个询问包含四个数 $l,r,c,d$ ，请求出在 $[l,r]$ 范围内满足 $(a\operatorname{xor} c)\le \min(b,d)$ 的项的个数，询问支持离线。</p>
+<p>由于 $n$ 和 $m$ 同阶，时间复杂度统一用 $n$ 表示。$A$ 为值域，$A=(0,2^{24})$ 。</p>
+<p><strong>20pts</strong> / 暴力枚举即可，时间复杂度 $O(n^2)$ 。</p>
+<p><strong>35pts</strong> / 这一段满足 $\max(d)\le \min(b)$ ，我们可以提前把数列中每个数插入进 trie 树中，那么就形成了一棵 <strong>可持久化字典树</strong>。在可持久化字典树查找异或值 $\le d$ 的个数便是字典树的经典应用了。$O(n\log A)$</p>
+<p><strong>55pts</strong> / 这一段满足 $\min(d)\ge \max(b)$ ，跟 35pts 的做法相似，我们可以发现满足 $(a\operatorname{xor} c)\le b$ 的 $c$ 值必然在 trie 树的几棵子树中，将这几科子树打上标记。处理询问时，模拟插入 $c$ 的过程算出答案即可。$O(n\log A)$</p>
+<p><strong>65pts</strong> / 这一段满足 $l=1,r=n$ 。我们离线将所有询问和每一项按照 $b$ 或 $d$ 的大小升序排序。排序后，每个询问的前面利用 55pts 的方法，后面利用 35pts 的方法即可。$O(n\log A)$ </p>
+<p><strong>80pts</strong> / 这一段满足 $n,q\le 7\times 10^4$ 。跟 65pts 的方法类似，我们可以将询问 <strong>分块</strong>。大块按照 65pts 的方法统一解决，散块直接暴力，时间复杂度 $O(n\log A+nB+\dfrac{n^2}{B}\log A)$ ，当取到 $B=\sqrt{n\log A}$ 时复杂度最优，最优为 $O(n\sqrt{n\log A})$ 。</p>
+<p><strong>100pts</strong> / 这一段满足 $n,q\le 10^5$ 。考虑 <strong>CDQ分治</strong> （这是雅礼学长陈丹琦发明的算法，推荐！），考虑先将询问拆成 $qry(r)$ 和 $qry(l-1)$ 两部分，插进数列里按照下标排序。接着进行分治。分治内部再按照 $b$ 或 $d$ 的值排序，统计询问用 65pts 的思想，外加一棵 trie 树搞定。时间复杂度 $O(n\log^2n)$ 。</p>
+<p><strong>Code</strong> : <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/eedc46po">https://www.luogu.com.cn/paste/eedc46po</a> / <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/gxm7yax4">https://www.luogu.com.cn/paste/gxm7yax4</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%B8%E8%AE%B0/" rel="tag"># 游记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/15/qian-tan-shu-zhuang-shu-zu-and-xian-duan-shu/" rel="prev" title="浅谈树状数组 & 线段树">
+      <i class="fa fa-chevron-left"></i> 浅谈树状数组 & 线段树
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/16/python/" rel="next" title="Python！">
+      Python！ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%A4%E6%80%92%E7%9A%84%E5%B0%8F-N"><span class="nav-number">1.</span> <span class="nav-text">愤怒的小 N</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%AF%E6%9C%A8%E5%B0%8F%E8%B5%9B"><span class="nav-number">2.</span> <span class="nav-text">积木小赛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B2%9B%E5%B1%BF%E6%8E%A2%E9%99%A9"><span class="nav-number">3.</span> <span class="nav-text">岛屿探险</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Graphcity</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Graphcity</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"graphcities.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="FHQ-Treap 是平衡树的一种，它是一种无需旋转的平衡树，这也使得它能够高效快速地支持区间操作和可持久化。平衡树结点有两种类型，权值 $val$ 和随机权值 $key$。FHQ-Treap 让权值满足二叉搜索树的性质，而让随机权值满足堆性质，从而保证 $O(n\log n)$ 的时间复杂度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈 FHQ-Treap">
+<meta property="og:url" content="https://graphcities.github.io/2021/05/15/qian-tan-fhq-treap/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="FHQ-Treap 是平衡树的一种，它是一种无需旋转的平衡树，这也使得它能够高效快速地支持区间操作和可持久化。平衡树结点有两种类型，权值 $val$ 和随机权值 $key$。FHQ-Treap 让权值满足二叉搜索树的性质，而让随机权值满足堆性质，从而保证 $O(n\log n)$ 的时间复杂度。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/9gcwn3ks.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/sx15doye.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/keqhvx7t.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/3fr1sd65.png">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/axeb12ko.png">
+<meta property="article:published_time" content="2021-05-15T05:35:06.000Z">
+<meta property="article:modified_time" content="2021-05-28T10:21:14.696Z">
+<meta property="article:author" content="Graphcity">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.luogu.com.cn/upload/image_hosting/9gcwn3ks.png">
+
+<link rel="canonical" href="https://graphcities.github.io/2021/05/15/qian-tan-fhq-treap/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>浅谈 FHQ-Treap | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://graphcities.github.io/2021/05/15/qian-tan-fhq-treap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Graphcity">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浅谈 FHQ-Treap
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-15 13:35:06" itemprop="dateCreated datePublished" datetime="2021-05-15T13:35:06+08:00">2021-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-28 18:21:14" itemprop="dateModified" datetime="2021-05-28T18:21:14+08:00">2021-05-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>FHQ-Treap 是平衡树的一种，它是一种无需旋转的平衡树，这也使得它能够高效快速地支持区间操作和可持久化。平衡树结点有两种类型，权值 $val$ 和随机权值 $key$。FHQ-Treap 让权值满足二叉搜索树的性质，而让随机权值满足堆性质，从而保证 $O(n\log n)$ 的时间复杂度。</p>
+<span id="more"></span>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+<li><p>前言</p>
+<ul>
+<li>FHQ - Treap 介绍</li>
+<li>优缺点介绍</li>
+</ul>
+</li>
+<li><p>实现方法</p>
+<ul>
+<li><p>基础操作</p>
+</li>
+<li><p>Split &amp; Merge</p>
+</li>
+<li>其它操作</li>
+</ul>
+</li>
+<li><p>区间问题</p>
+<ul>
+<li>Split &amp; Merge ( New )</li>
+<li>提取，翻转与合并区间</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
+<li>FHQ-Treap 介绍</li>
+</ul>
+<p>FHQ-Treap 是一种可以不用旋转的，类似 Treap 的东西。跟 Treap 一样，每个结点不仅有一个权值（ val ），还有一个随机索引（ key ）。它的权值组成了二叉搜索树，而索引则组成了一个小根堆。</p>
+<p>因为这种性质，这棵树就保证了平衡。它通过两个关键操作—— <strong>分裂（ Split ）</strong> 和 <strong>合并（ Merge ）</strong> 来完成树的平衡和各种操作。</p>
+<hr>
+<ul>
+<li>优缺点介绍</li>
+</ul>
+<p><strong>优点</strong> / 代码简单，常数较小（ 指比 Splay 小 ），支持可持久化和区间操作</p>
+<p><strong>缺点</strong> / 作为 LCT 辅助树时总时间复杂度 $O(n\log^2n)$ </p>
+<hr>
+<h3 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h3><ul>
+<li>基础操作</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> l,r,val;</span><br><span class="line">    <span class="keyword">int</span> key,siz;</span><br><span class="line">&#125; k[Maxn+<span class="number">5</span>];</span><br><span class="line"><span class="keyword">int</span> n,tot,root;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ls(x) k[x].l</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rs(x) k[x].r</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Newnode</span><span class="params">(<span class="keyword">int</span> x)</span> <span class="comment">// 创建新结点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    k[++tot]=(Node)&#123;<span class="number">0</span>,<span class="number">0</span>,x,<span class="built_in">rand</span>(),<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">return</span> tot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Update</span><span class="params">(<span class="keyword">int</span> x)</span> <span class="comment">// 上传</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    k[x].siz=k[<span class="built_in">ls</span>(x)].siz+k[<span class="built_in">rs</span>(x)].siz+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li>Split &amp; Merge</li>
+</ul>
+<p>FHQ-Treap 最核心的操作就是 Split 和 Merge 。Split 是将一棵树按照某个权值 $val$ 将它分裂成 $\le val$ 和 $&gt; val$ 的两部分，且依然符合平衡树的性质。Merge 是将两棵树（ 假设为 $x,y$ ，且 $x$ 树中所有权值均不大于 $y$ 树中所有权值 ）合并成为一棵树，也依然符合平衡树的性质。</p>
+<p>这是一棵平衡树：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/9gcwn3ks.png" alt=""></p>
+<p>我们把它以 26 这个值分裂后，变成了这样：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/sx15doye.png" alt=""></p>
+<p>按照 11 这个值分裂则是这样：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/keqhvx7t.png" alt=""></p>
+<p>根据分裂的过程可以发现，Split 函数的大作步骤如下：</p>
+<ol>
+<li>判断根节点与分裂值 $val$ 的大小关系。（ 后面以如果小于等于它为例，大于它则相反 ）</li>
+<li>将根节点设为第一棵树的根。</li>
+<li>对右子树递归进行 Split 操作，将它分裂为 $\le val$ 和 $&gt;val$ 的两部分，第一部分接在右子树，第二部分则成为新的一棵树。</li>
+</ol>
+<p>递归终止条件：当前根节点为 0。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Split</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> val,<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> &amp;y)</span> <span class="comment">// 分裂为x和y两部分</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!now) &#123;x=y=<span class="number">0</span>; <span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span>(k[now].val&lt;=val)</span><br><span class="line">        x=now,<span class="built_in">Split</span>(<span class="built_in">rs</span>(now),val,<span class="built_in">rs</span>(now),y);</span><br><span class="line">    <span class="keyword">if</span>(k[now].val&gt;val)</span><br><span class="line">        y=now,<span class="built_in">Split</span>(<span class="built_in">ls</span>(now),val,x,<span class="built_in">ls</span>(now));</span><br><span class="line">    <span class="built_in">Update</span>(now);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于 Merge 操作的两棵树 $x$ 和 $y$ ，合并起来只有这两种情况：</p>
+<ol>
+<li><p>$key_x\le key_y$ <img src="https://cdn.luogu.com.cn/upload/image_hosting/3fr1sd65.png" alt=""></p>
+</li>
+<li><p>$key_y&lt;key_x$<img src="https://cdn.luogu.com.cn/upload/image_hosting/axeb12ko.png" alt=""></p>
+</li>
+</ol>
+<p>所以我们就可以得出 Merge 操作大致的过程了：</p>
+<ol>
+<li>判断 $key_x$ 与 $key_y$ 的大小关系（ 以第一种情况为例，大于它则相反 ）</li>
+<li>对右子树进行递归操作，即合并它的右子树和树 $y$ ，并将合并后的根成为它的右儿子</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span> <span class="comment">// 合并 x,y 返回新根</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x || !y) <span class="keyword">return</span> x+y;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(k[x].key&lt;=k[y].key)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">rs</span>(x)=<span class="built_in">Merge</span>(<span class="built_in">rs</span>(x),y),<span class="built_in">Update</span>(x);</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">ls</span>(y)=<span class="built_in">Merge</span>(x,<span class="built_in">ls</span>(y)),<span class="built_in">Update</span>(y);</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>于是，接下来的所有操作，都可以用这两个核心操作完成了。</p>
+<hr>
+<ul>
+<li>其它操作</li>
+</ul>
+<p>根据 Split 和 Merge 操作的含义感性理解即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 插入新结点，权值为 x</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Insert</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    x=<span class="built_in">Newnode</span>(x);</span><br><span class="line">    <span class="built_in">Split</span>(root,k[x].val,a,b);</span><br><span class="line">    root=<span class="built_in">Merge</span>(a,<span class="built_in">Merge</span>(x,b));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 删除值为 x 的一个结点</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Delete</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,c;</span><br><span class="line">    <span class="built_in">Split</span>(root,x<span class="number">-1</span>,a,b),<span class="built_in">Split</span>(b,x,b,c);</span><br><span class="line">    root=<span class="built_in">Merge</span>(a,<span class="built_in">Merge</span>(<span class="built_in">Merge</span>(<span class="built_in">ls</span>(b),<span class="built_in">rs</span>(b)),c));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 查询 x 的排名</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Rate</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,res;</span><br><span class="line">    <span class="built_in">Split</span>(root,x<span class="number">-1</span>,a,b);</span><br><span class="line">    res=k[a].siz+<span class="number">1</span>;</span><br><span class="line">    root=<span class="built_in">Merge</span>(a,b);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 查询第 x 名</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Kth</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> now=root;</span><br><span class="line">    <span class="keyword">while</span>(now)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> siz=k[<span class="built_in">ls</span>(now)].siz+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(siz==x) <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(siz&gt;x) now=<span class="built_in">ls</span>(now);</span><br><span class="line">        <span class="keyword">else</span> x-=siz,now=<span class="built_in">rs</span>(now);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> k[now].val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 查询 x 的前驱</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pre</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,now;</span><br><span class="line">    <span class="built_in">Split</span>(root,x<span class="number">-1</span>,a,b);</span><br><span class="line">    now=a; <span class="keyword">while</span>(<span class="built_in">rs</span>(now)) now=<span class="built_in">rs</span>(now);</span><br><span class="line">    root=<span class="built_in">Merge</span>(a,b);</span><br><span class="line">    <span class="keyword">return</span> k[now].val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 查询 x 的后继</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Nxt</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,now;</span><br><span class="line">    <span class="built_in">Split</span>(root,x,a,b);</span><br><span class="line">    now=b; <span class="keyword">while</span>(<span class="built_in">ls</span>(now)) now=<span class="built_in">ls</span>(now);</span><br><span class="line">    root=<span class="built_in">Merge</span>(a,b);</span><br><span class="line">    <span class="keyword">return</span> k[now].val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>模板代码</strong> / <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/uswxlq5c"><strong>There</strong></a></p>
+<hr>
+<h3 id="区间问题"><a href="#区间问题" class="headerlink" title="区间问题"></a>区间问题</h3><p>在解决区间问题时，平衡树中某一结点左端的结点在原序列中都比它靠前，右端的结点都比它靠后。也就是说，这棵平衡树的 <strong>中序遍历</strong> 即为原序列。</p>
+<ul>
+<li>Split &amp; Merge ( New )</li>
+</ul>
+<p>Split 改变为将某棵树中前 $siz$ 个结点放到一个树中，后面的结点放到另一棵树。Merge 操作则不变，只不过 $x$ 树中所有的位置都要比 $y$ 树中所有位置靠前。注意区间平衡树涉及到下传标记这一过程，所以要当子树可能产生改变的位置进行下传操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Split</span><span class="params">(<span class="keyword">int</span> now,<span class="keyword">int</span> siz,<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> &amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!now) &#123;x=y=<span class="number">0</span>; <span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="built_in">push_down</span>(now);</span><br><span class="line">    <span class="keyword">if</span>(t[<span class="built_in">ls</span>(now)].siz+<span class="number">1</span>&lt;=siz)</span><br><span class="line">        x=now,<span class="built_in">Split</span>(<span class="built_in">rs</span>(now),siz-t[<span class="built_in">ls</span>(now)].siz<span class="number">-1</span>,<span class="built_in">rs</span>(now),y);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        y=now,<span class="built_in">Split</span>(<span class="built_in">ls</span>(now),siz,x,<span class="built_in">ls</span>(now));</span><br><span class="line">    <span class="built_in">Update</span>(now);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!x || !y) <span class="keyword">return</span> x+y;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(t[x].key&lt;=t[y].key)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">push_down</span>(x);</span><br><span class="line">        <span class="built_in">rs</span>(x)=<span class="built_in">Merge</span>(<span class="built_in">rs</span>(x),y),<span class="built_in">Update</span>(x);</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">push_down</span>(y);</span><br><span class="line">        <span class="built_in">ls</span>(y)=<span class="built_in">Merge</span>(x,<span class="built_in">ls</span>(y)),<span class="built_in">Update</span>(y);</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li>提取，翻转与合并区间</li>
+</ul>
+<p>对于区间翻转操作，可以利用平衡树的两个核心操作 Split 和 Merge 提取出这个区间对应的树，将每个结点的左右儿子交换即可。对于交换左右儿子的操作，我们可以在根节点打上翻转标记，并在适当的时候进行下传。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">push_down</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!t[x].tag) <span class="keyword">return</span>;</span><br><span class="line">    t[x].tag=<span class="number">0</span>,<span class="built_in">swap</span>(<span class="built_in">ls</span>(x),<span class="built_in">rs</span>(x));</span><br><span class="line">    t[<span class="built_in">ls</span>(x)].tag^=<span class="number">1</span>,t[<span class="built_in">rs</span>(x)].tag^=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Solve</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b,c;</span><br><span class="line">    <span class="built_in">Split</span>(root,r,a,c),<span class="built_in">Split</span>(a,l<span class="number">-1</span>,a,b);</span><br><span class="line">    t[b].tag^=<span class="number">1</span>;</span><br><span class="line">    root=<span class="built_in">Merge</span>(a,<span class="built_in">Merge</span>(b,c));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>模板代码</strong> / <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/paste/6aojh6oz"><strong>There</strong></a></p>
+<hr>
+<h3 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1486"><strong>P1486 「NOI2004」 郁闷的出纳员</strong></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2286"><strong>P2286 「HNOI2004」宠物收养场</strong></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3224"><strong>P3224 「HNOI2012」永无乡</strong></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4036"><strong>P4036 「JSOI2008」火星人</strong></a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/15/qian-tan-shu-zhuang-shu-zu-and-xian-duan-shu/" rel="next" title="浅谈树状数组 & 线段树">
+      浅谈树状数组 & 线段树 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">实现方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">区间问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exercise"><span class="nav-number">5.</span> <span class="nav-text">Exercise</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Graphcity</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Graphcity</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+  
+</body>
+</html>
